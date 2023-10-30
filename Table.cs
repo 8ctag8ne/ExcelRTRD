@@ -14,8 +14,6 @@ public class Table
 	private Dictionary<int, List<int>>DependentCells;
 	private Dictionary<int, List<int>>BasisCells;
 
-	public List<int> UnprocessedCells;
-
 
 	public Table()
 	{
@@ -25,7 +23,6 @@ public class Table
 		color = new Dictionary<int, int>();
 		DependentCells = new Dictionary<int, List<int>>();
 		BasisCells = new Dictionary<int, List<int>>();
-		UnprocessedCells = new List<int>();
 	}
 
 	public double GetCellValue(Pair<int, int>coordinates)
@@ -82,7 +79,11 @@ public class Table
 		List<string>str = MyExtension.ParseName(expression);
 		List<int>OldBasis = new List<int>();
 		OldBasis = BasisCells[IDByCoordinates[coordinates]];
-		DeleteCell(coordinates);
+		foreach(var oldID in BasisCells[IDByCoordinates[coordinates]])
+		{
+			DependentCells[oldID].Remove(IDByCoordinates[coordinates]);
+		}
+		BasisCells[IDByCoordinates[coordinates]].Clear();
 
 		foreach(string s in str)
 		{
@@ -107,6 +108,7 @@ public class Table
 			{
 				DependentCells[ID].Add(IDByCoordinates[coordinates]);
 			}
+			
 			throw new ArgumentException("Cycle has occured");
 		} else
 		{
@@ -203,7 +205,6 @@ public class Table
 	{
 		string exp = cellByID[ID].GetExpression();
 		cellByID[ID].ChangeExpression(exp);
-		UnprocessedCells.Add(ID);
 		foreach(var i in DependentCells[ID])
 		{
 			Refresh(i);
@@ -237,7 +238,6 @@ public class Table
 			color.Remove(cell.ID);
 			DependentCells.Remove(cell.ID);
 			BasisCells.Remove(cell.ID);
-			UnprocessedCells.Remove(ID);
 		}
 
 	}
@@ -308,7 +308,6 @@ public class Table
 	private bool DFS(int ID)
 	{
 		color[ID] = 1;
-		//bool flag = false;
 		foreach(var newCellID in DependentCells[ID])
 		{
 			if(color[newCellID]==0)

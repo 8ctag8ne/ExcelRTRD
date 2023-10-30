@@ -142,7 +142,7 @@ namespace test
                 {
                     try
                     {
-                        table.EditCell(coordinates, Convert.ToString(content));
+                        table.EditCell(coordinates, content);
                     }
                     catch(Exception E)
                     {
@@ -154,7 +154,7 @@ namespace test
             {
                 try
                 {
-                    table.AddCell(coordinates, Convert.ToString(content));
+                    table.AddCell(coordinates, content);
                 }
                 catch(Exception E)
                 {
