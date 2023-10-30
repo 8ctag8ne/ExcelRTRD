@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "FYnBjUFQj2hWxKRyrwt/gEX76fw8fSDClEIrdmQITOkCK7LHtAuh+aoBaXKpHdSnbFec4pqVOJrnU0hXgnelqw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\nazar\\OneDrive\\Рабочий стол\\унік\\Прога\\ООП\\test\\DemoParser.Parsing\\DemoParser.Parsing.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\nazar\\.nuget\\packages\\antlr4.runtime.standard\\4.13.1\\antlr4.runtime.standard.4.13.1.nupkg.sha512"
+  ],
+  "logs": []
+}
