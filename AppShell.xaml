@@ -7,7 +7,7 @@
     Shell.FlyoutBehavior="Disabled">
 
     <ShellContent
-        Title="Excel RTRD"
+        Title="Excel RTRD⚰️"
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage"/>
 

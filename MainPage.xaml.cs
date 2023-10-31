@@ -131,7 +131,7 @@ namespace test
             }
             catch(Exception E)
             {
-                DisplayAlert("Помилка", E.Message, "Добре");
+                DisplayAlert("Помилка", E.Message+"☠️", "Добре");
                 content = "0";
             }
             if(table.CellExists(coordinates) && entry.Text!="")
@@ -144,7 +144,7 @@ namespace test
                     }
                     catch(Exception E)
                     {
-                        DisplayAlert("Помилка", E.Message, "Добре");
+                        DisplayAlert("Помилка", E.Message+"😵", "Добре");
                     }
                 }
             } else
@@ -156,7 +156,7 @@ namespace test
                 }
                 catch(Exception E)
                 {
-                    DisplayAlert("Помилка", E.Message, "Добре");
+                    DisplayAlert("Помилка", E.Message+"😵", "Добре");
                 }
             }
             if(table.CellExists(coordinates))
@@ -220,12 +220,12 @@ namespace test
             }
             catch (Exception E)
             {
-                DisplayAlert("Помилка", E.Message, "Добре");
+                DisplayAlert("Помилка", E.Message+"😵", "Добре");
             }
 		}
 		private async void ExitButton_Clicked(object sender, EventArgs e)
 		{
-            bool answer = await DisplayAlert("Підтвердження", "Ви дійсно хочете вийти?",
+            bool answer = await DisplayAlert("Підтвердження", "Ви дійсно хочете вийти?🤨🤨🤨",
             "Так", "Ні");
             if (answer)
             {
@@ -234,11 +234,11 @@ namespace test
 		}
 		private async void HelpButton_Clicked(object sender, EventArgs e)
 		{
-		    await DisplayAlert("Довідка", "Лабораторна робота №1 за варіантом 19.\nСтудента групи К-24 Яготіна Назарія Валентиновича.\nВиконана під науковим керівництвом Минька Вадима)", "OK");
+		    await DisplayAlert("Довідка", "Лабораторна робота №1 за варіантом 19.\nСтудента групи К-24 Яготіна Назарія Валентиновича.\nВиконана під науковим керівництвом Минька Вадима та ChatGPT😎🤙", "OK");
 		}
 		private async void DeleteRowButton_Clicked(object sender, EventArgs e)
 		{
-            string result = await DisplayPromptAsync("Delete row:", "Please enter a value:", "OK", "Cancel", initialValue: "");
+            string result = await DisplayPromptAsync("Видалити рядок:", "Введіть номер рядка:", "Добре", "Закрити", initialValue: "");
             if (int.TryParse(result, out int number))
             {
                 try 
@@ -247,18 +247,18 @@ namespace test
                 }
                 catch (ArgumentException E)
                 {
-                    DisplayAlert("Помилка", E.Message, "Добре");
+                    DisplayAlert("Помилка", E.Message+"💀", "Добре");
                 }
                 Refresh();
             }
             else
             {
-                DisplayAlert("Помилка", "Введений текст не є числом.", "Добре");
+                DisplayAlert("Помилка", "Введений текст не є числом.👽", "Добре");
             }
 		}
 		private async void DeleteColumnButton_Clicked(object sender, EventArgs e)
 		{
-            string result = await DisplayPromptAsync("Delete column:", "Please enter a value:", "OK", "Cancel", initialValue: "");
+            string result = await DisplayPromptAsync("Видалити стовпець:", "Введіть номер або значення стовпця:", "Добре", "Закрити", initialValue: "");
             if (int.TryParse(result, out int number))
             {
                 try 
@@ -267,7 +267,7 @@ namespace test
                 }
                 catch (ArgumentException E)
                 {
-                    DisplayAlert("Помилка", E.Message, "Добре");
+                    DisplayAlert("Помилка", E.Message+"💀", "Добре");
                 }
                 Refresh();
             }
@@ -280,7 +280,7 @@ namespace test
                 }
                 catch(ArgumentException E)
                 {
-                    DisplayAlert("Помилка", E.Message, "Добре");
+                    DisplayAlert("Помилка", E.Message+"💀", "Добре");
                 }
                 Refresh();
             }
