@@ -4,6 +4,7 @@ using Microsoft.Maui.Controls;
 using Microsoft.Maui.Controls.Compatibility;
 using System;
 using System.Collections.Generic;
+using Microsoft.Maui.Storage;
 using Grid = Microsoft.Maui.Controls.Grid;
 namespace test
 {
@@ -199,10 +200,18 @@ namespace test
 		}
 		private async void ReadButton_Clicked(object sender, EventArgs e)// Обробка кнопки "Прочитати"
 		{
-
-            string result = await DisplayPromptAsync("Прочитати файл", "Вкажіть шлях до розташування файлу:", "Добре", "Закрити", initialValue: "");
-            if(result!="") try
+            var customFileType = new FilePickerFileType(
+                new Dictionary<DevicePlatform, IEnumerable<string>>
+                {
+                    { DevicePlatform.WinUI, new[] { ".json"} }, // file extension
+                });
+            var MyFile = await FilePicker.PickAsync(new PickOptions{
+                FileTypes = customFileType,
+                PickerTitle = "Оберіть файл"
+            });
+            try
             { 
+                string result = MyFile.FullPath;
                 JsonSerializable_ obj = JSONManager.ReadFile(result);
                 CountColumn = obj.CountColumn;
                 CountRow = obj.CountRow;
@@ -218,9 +227,13 @@ namespace test
                 }
                 Refresh();
             }
+            catch(NullReferenceException E)
+            {
+                return;
+            }
             catch (Exception E)
             {
-                DisplayAlert("Помилка", E.Message+"😵", "Добре");
+                DisplayAlert("Помилка", "Неможливо обрати даний файл.", "Добре");
             }
 		}
 		private async void ExitButton_Clicked(object sender, EventArgs e)
@@ -239,6 +252,10 @@ namespace test
 		private async void DeleteRowButton_Clicked(object sender, EventArgs e)
 		{
             string result = await DisplayPromptAsync("Видалити рядок:", "Введіть номер рядка:", "Добре", "Закрити", initialValue: "");
+            if(result=="")
+            {
+                return;
+            }
             if (int.TryParse(result, out int number))
             {
                 try 
@@ -247,11 +264,17 @@ namespace test
                 }
                 catch (ArgumentException E)
                 {
-                    DisplayAlert("Помилка", E.Message+"💀", "Добре");
+                    string s = E.Message;
+                    if(s[0]>='A' && s[0]<='Z')
+                    {
+                        s = "Введено неправильний вираз";
+                    }
+                    DisplayAlert("Помилка", s+"💀", "Добре");
                 }
                 Refresh();
             }
             else
+            if(result!="")
             {
                 DisplayAlert("Помилка", "Введений текст не є числом.👽", "Добре");
             }
@@ -259,6 +282,10 @@ namespace test
 		private async void DeleteColumnButton_Clicked(object sender, EventArgs e)
 		{
             string result = await DisplayPromptAsync("Видалити стовпець:", "Введіть номер або значення стовпця:", "Добре", "Закрити", initialValue: "");
+            if(result=="")
+            {
+                return;
+            }
             if (int.TryParse(result, out int number))
             {
                 try 
@@ -267,7 +294,12 @@ namespace test
                 }
                 catch (ArgumentException E)
                 {
-                    DisplayAlert("Помилка", E.Message+"💀", "Добре");
+                    string s = E.Message;
+                    if(s[0]>='A' && s[0]<='Z')
+                    {
+                        s = "Введено неправильний вираз";
+                    }
+                    DisplayAlert("Помилка", s+"💀", "Добре");
                 }
                 Refresh();
             }
@@ -280,7 +312,12 @@ namespace test
                 }
                 catch(ArgumentException E)
                 {
-                    DisplayAlert("Помилка", E.Message+"💀", "Добре");
+                    string s = E.Message;
+                    if(s[0]>='A' && s[0]<='Z')
+                    {
+                        s = "Введено неправильний вираз";
+                    }
+                    DisplayAlert("Помилка", s+"💀", "Добре");
                 }
                 Refresh();
             }

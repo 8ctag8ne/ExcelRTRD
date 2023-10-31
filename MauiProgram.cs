@@ -17,6 +17,9 @@ public static class MauiProgram
 
 #if DEBUG
 		builder.Logging.AddDebug();
+		builder.Services.AddSingleton<IFilePicker>(FilePicker.Default);
+		//builder.Services.AddSingleton<IFileSaver>(FileSaver.Default);
+		builder.Services.AddTransient<MainPage>();
 #endif
 
 		return builder.Build();
