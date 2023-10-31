@@ -101,7 +101,7 @@ public class LabCalculatorVisitor : LabCalculatorBaseVisitor<double>
                     return left / right;
                 } else
                 {
-                    throw new DivideByZeroException();
+                    throw new DivideByZeroException("Спроба поділити на 0.");
                 }
             }
         }

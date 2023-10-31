@@ -131,7 +131,7 @@ public class Table
 				DependentCells[ID].Add(IDByCoordinates[coordinates]);
 			}
 			
-			throw new ArgumentException("Cycle has occured");
+			throw new ArgumentException("Введений вираз призвів до утворення циклу.");
 		} else
 		{
 			cellByID[IDByCoordinates[coordinates]].ChangeExpression(expression);
@@ -177,7 +177,7 @@ public class Table
 		if(FindCycles(coordinates)==true)
 		{
 			DeleteCell(coordinates);
-			throw new ArgumentException("Cycle has occured");
+			throw new ArgumentException("Введений вираз призвів до утворення циклу.");
 		}
 	}
 	
@@ -239,12 +239,12 @@ public class Table
 		if(DependentCells[ID].Count>0)
 		{
 			//Cell cell = cellByID[ID];
-			string s = "There is a cell "+cellByID[ID].name+" which is used to calcute values of such cells:\n";
+			string s = "Від значення клітинки "+cellByID[ID].name+" залежить значення таких клітинок:\n";
 			foreach(var newID in DependentCells[ID])
 			{
 				s+=cellByID[newID].name+"; ";
 			}
-			s+="\nChange the expression of the cells mentioned above before deleting current";
+			s+="\nЗмініть вираз, записаний у даних клітинках перед видаленням цього";
 			throw new ArgumentException(s);
 		} else
 		{
@@ -260,6 +260,7 @@ public class Table
 			color.Remove(cell.ID);
 			DependentCells.Remove(cell.ID);
 			BasisCells.Remove(cell.ID);
+			cell.Delete();
 		}
 
 	}
@@ -286,7 +287,7 @@ public class Table
 		}
 		catch (ArgumentException e)
 		{
-			throw new ArgumentException(e.Message+" row.");
+			throw new ArgumentException(e.Message+" рядка.");
 		}
 	}
 
@@ -312,7 +313,7 @@ public class Table
 		}
 		catch (ArgumentException e)
 		{
-			throw new ArgumentException(e.Message+" column.");
+			throw new ArgumentException(e.Message+" стовпця.");
 		}
 
 	}

@@ -144,7 +144,7 @@ namespace test
                     }
                     catch(Exception E)
                     {
-                        DisplayAlert("Error", E.Message, "OK");
+                        DisplayAlert("Помилка", E.Message, "Добре");
                     }
                 }
             } else
@@ -156,7 +156,7 @@ namespace test
                 }
                 catch(Exception E)
                 {
-                    DisplayAlert("Error", E.Message, "OK");
+                    DisplayAlert("Помилка", E.Message, "Добре");
                 }
             }
             if(table.CellExists(coordinates))
@@ -253,7 +253,7 @@ namespace test
             }
             else
             {
-                DisplayAlert("Помилка", "Введений текст не э числом.", "Добре");
+                DisplayAlert("Помилка", "Введений текст не є числом.", "Добре");
             }
 		}
 		private async void DeleteColumnButton_Clicked(object sender, EventArgs e)
