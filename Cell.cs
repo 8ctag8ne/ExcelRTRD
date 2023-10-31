@@ -2,28 +2,47 @@ namespace test;
 
 using System.Numerics;
 using Antlr4.Runtime.Misc;
+using ExtensionMethods;
 using DemoParser.Parsing;
 using Windows.Networking.NetworkOperators;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 public class Cell
 {
 	public double value{get; set;}
-	private string expression{get; set;}
-	private int coordinateX{get; set;}
-	private int coordinateY{get; set;}
+	public string expression{get; set;}
+	public int coordinateX{get; set;}
+	public int coordinateY{get; set;}
 	public string name {get; set;}
 	public int ID{get;}
-	private static int count=0;
+	public static int count=0;
+
+	public Cell(double val, string exp, int coordX, int coordY, string jname, int id)
+	{
+		value = val;
+		expression = exp;
+		coordinateX = coordX;
+		coordinateY = coordY;
+		name = jname;
+		ID = id;
+		Cell.count = Math.Max(Cell.count, ID+1);
+	}
 
 	public string GetExpression()
 	{
 		return expression;
 	}
 
-	public Pair<int, int> GetCoordinates()
+	public Tuple<int, int> GetCoordinates()
 	{
-		Pair<int, int> p = new Pair<int, int>(this.coordinateX, this.coordinateY);
+		Tuple<int, int> p = new Tuple<int, int>(this.coordinateX, this.coordinateY);
 		return p;
+	}
+
+	public string GetName()
+	{
+		return this.name;
 	}
 
 	public string CoordinatesToName()
@@ -79,36 +98,10 @@ public class Cell
 		ReCalculate();
 	}
 
-	/*public void Refresh()
-	{
-		Queue<Cell>Q = new Queue<Cell>();
-		Q.Enqueue(this);
-		foreach(Cell cell in Q)
-		{
-			cell.ReCalculate();
-			foreach(Cell i in cell.dependentCells)
-			{
-				Q.Enqueue(i);
-			}
-		}
-	}*/
-
 	public void Delete()
 	{
 		expression = "0";
 		Calculator.GlobalScope.Remove(this.name);
-	}
-
-	public void ChangePosition(int x, int y)
-	{
-		coordinateX = x;
-		coordinateY = y;
-		if(Calculator.GlobalScope.ContainsKey(this.name))
-		{
-			Calculator.GlobalScope.Remove(this.name);
-		}
-		name = CoordinatesToName();
-		Calculator.GlobalScope.Add(this.name, this.value);
 	}
 
 }

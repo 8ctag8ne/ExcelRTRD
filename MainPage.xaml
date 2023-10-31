@@ -25,8 +25,8 @@
             <Button Text="Додати стовпчик" Clicked="AddColumnButton_Clicked" />
         </StackLayout>
 
-        <Entry x:Name="textInput" Placeholder="Введіть текст" Grid.Row="1"
-        Grid.ColumnSpan="2" />
+        <!--<Entry x:Name="textInput" Placeholder="Введіть текст" Grid.Row="1"
+        Grid.ColumnSpan="2" /> -->
 
         <ScrollView Grid.Row="2" Grid.ColumnSpan="2">
             <Grid x:Name="grid">

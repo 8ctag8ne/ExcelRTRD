@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generated from c:/Users/nazar/OneDrive/Рабочий стол/унік/Прога/ООП/test/DemoParser.Parsing/LabCalculator.g4 by ANTLR 4.13.1
+// Generated from c:/Users/nazar/OneDrive/пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ/пїЅпїЅпїЅпїЅ/пїЅпїЅпїЅпїЅпїЅ/пїЅпїЅпїЅ/test/DemoParser.Parsing/LabCalculator.g4 by ANTLR 4.13.1
 
 // Unreachable code detected
 #pragma warning disable 0162

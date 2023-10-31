@@ -1,4 +1,6 @@
 using System.Collections.ObjectModel;
+using System.Runtime.Serialization;
+using System.Text.Json.Serialization;
 using Antlr4.Runtime.Misc;
 using ExtensionMethods;
 using Microsoft.UI.Xaml.Controls;
@@ -7,25 +9,45 @@ using Windows.Perception.Spatial;
 namespace test;
 public class Table
 {
-	private Dictionary<int, Cell> cellByID;
-	private Dictionary<string, int>IDByName;
-	private Dictionary<Pair<int, int>, int>IDByCoordinates;
-	private Dictionary<int, int>color;
-	private Dictionary<int, List<int>>DependentCells;
-	private Dictionary<int, List<int>>BasisCells;
+	public Dictionary<int, Cell> cellByID;
+
+	public Dictionary<string, int>IDByName;
+
+	//[JsonPropertyName("IDByCoordinates")]
+	public Dictionary<Tuple<int, int>, int>IDByCoordinates;
+
+	public Dictionary<int, int>color;
+
+	public Dictionary<int, List<int>>DependentCells;
+
+	public Dictionary<int, List<int>>BasisCells;
+
+	/*public Table(Dictionary<int, Cell> JcellByID, Dictionary<string, int> JIDByName, Dictionary<int, int>Jcolor, Dictionary<int, List<int>>JDependentCells, Dictionary<int, List<int>>JBasisCells)
+	{
+		cellByID = JcellByID;
+		IDByName = JIDByName;
+		color = Jcolor;
+		DependentCells = JDependentCells;
+		BasisCells = JBasisCells;
+		IDByCoordinates = new Dictionary<Tuple<int, int>, int>();
+		foreach(var cell in cellByID.Values)
+		{
+			IDByCoordinates.Add(cell.GetCoordinates(), cell.ID);
+		}
+	}*/
 
 
 	public Table()
 	{
 		cellByID = new Dictionary<int, Cell>();
 		IDByName = new Dictionary<string, int>();
-		IDByCoordinates = new Dictionary<Pair<int, int>, int>();
+		IDByCoordinates = new Dictionary<Tuple<int, int>, int>();
 		color = new Dictionary<int, int>();
 		DependentCells = new Dictionary<int, List<int>>();
 		BasisCells = new Dictionary<int, List<int>>();
 	}
 
-	public double GetCellValue(Pair<int, int>coordinates)
+	public double GetCellValue(Tuple<int, int>coordinates)
 	{
 		if(IDByCoordinates.ContainsKey(coordinates) && cellByID.ContainsKey(IDByCoordinates[coordinates]))
 		{
@@ -46,7 +68,7 @@ public class Table
 			return 0.0;
 		}
 	}
-	public bool CellExists(Pair<int, int>coordinates)
+	public bool CellExists(Tuple<int, int>coordinates)
 	{
 		if(IDByCoordinates.ContainsKey(coordinates) && cellByID.ContainsKey(IDByCoordinates[coordinates]))
 		{
@@ -64,7 +86,7 @@ public class Table
 		return false;
 	}
 
-	public string GetExpression(Pair<int, int>coordinates)
+	public string GetExpression(Tuple<int, int>coordinates)
 	{
 		if(IDByCoordinates.ContainsKey(coordinates) && cellByID.ContainsKey(IDByCoordinates[coordinates]))
 		{
@@ -74,7 +96,7 @@ public class Table
 	}
 
 
-	public void EditCell(Pair<int, int> coordinates, string expression)
+	public void EditCell(Tuple<int, int> coordinates, string expression)
 	{
 		List<string>str = MyExtension.ParseName(expression);
 		List<int>OldBasis = new List<int>();
@@ -87,7 +109,7 @@ public class Table
 
 		foreach(string s in str)
 		{
-			Pair<int, int> p = MyExtension.NameToCoordinates(s);
+			Tuple<int, int> p = MyExtension.NameToCoordinates(s);
 			if(!CellExists(p))
 			{
 				AddCell(p);
@@ -117,9 +139,9 @@ public class Table
 		}
 	}
 
-	public void AddCell(Pair<int, int> coordinates)
+	public void AddCell(Tuple<int, int> coordinates)
 	{
-		Cell cell = new Cell(coordinates.a, coordinates.b);
+		Cell cell = new Cell(coordinates.Item1, coordinates.Item2);
 		cellByID.Add(cell.ID, cell);
 		IDByName.Add(cell.name, cell.ID);
 		IDByCoordinates.Add(coordinates, cell.ID);
@@ -129,9 +151,9 @@ public class Table
 		BasisCells.Add(cell.ID, new List<int>());
 	}
 
-	public void AddCell(Pair<int, int> coordinates, string expression)
+	public void AddCell(Tuple<int, int> coordinates, string expression)
 	{
-		Cell cell = new Cell(coordinates.a, coordinates.b, expression);
+		Cell cell = new Cell(coordinates.Item1, coordinates.Item2, expression);
 		cellByID.Add(cell.ID, cell);
 		IDByName.Add(cell.name, cell.ID);
 		IDByCoordinates.Add(coordinates, cell.ID);
@@ -143,7 +165,7 @@ public class Table
 		List<string>str = MyExtension.ParseName(expression);
 		foreach(string s in str)
 		{
-			Pair<int, int> p = MyExtension.NameToCoordinates(s);
+			Tuple<int, int> p = MyExtension.NameToCoordinates(s);
 			if(!CellExists(p))
 			{
 				AddCell(p);
@@ -159,7 +181,7 @@ public class Table
 		}
 	}
 	
-	public void DeleteCell(Pair<int, int> coordinates)
+	public void DeleteCell(Tuple<int, int> coordinates)
 	{
 		Cell cell = cellByID[IDByCoordinates[coordinates]];
 		//cellByID.Remove(cell.ID);
@@ -211,7 +233,7 @@ public class Table
 		}
 	}
 
-	private void DeletePermanently(Pair<int, int>coordinates)
+	private void DeletePermanently(Tuple<int, int>coordinates)
 	{
 		int ID = IDByCoordinates[coordinates];
 		if(DependentCells[ID].Count>0)
@@ -245,10 +267,10 @@ public class Table
 	public void DeleteRow(int number)
 	{
 		try{
-			List<Pair<int, int>> DeleteQuery = new List<Pair<int, int>>();
+			List<Tuple<int, int>> DeleteQuery = new List<Tuple<int, int>>();
 			foreach(var cell in cellByID.Values)
 			{
-				if(cell.GetCoordinates().b == number)
+				if(cell.GetCoordinates().Item2 == number)
 				{
 					DeleteQuery.Add(cell.GetCoordinates());
 					if(DependentCells[cell.ID].Count>0)
@@ -271,10 +293,10 @@ public class Table
 	public void DeleteColumn(int number)
 	{
 		try{
-			List<Pair<int, int>> DeleteQuery = new List<Pair<int, int>>();
+			List<Tuple<int, int>> DeleteQuery = new List<Tuple<int, int>>();
 			foreach(var cell in cellByID.Values)
 			{
-				if(cell.GetCoordinates().a == number)
+				if(cell.GetCoordinates().Item1 == number)
 				{
 					DeleteQuery.Add(cell.GetCoordinates());
 					if(DependentCells[cell.ID].Count>0)
@@ -326,7 +348,7 @@ public class Table
 		return false;
 	}
 
-	public bool FindCycles(Pair<int, int> coordinates)
+	public bool FindCycles(Tuple<int, int> coordinates)
 	{
 		foreach(var key in color.Keys)
 		{

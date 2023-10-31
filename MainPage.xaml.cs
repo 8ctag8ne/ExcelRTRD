@@ -10,8 +10,8 @@ namespace test
 	public partial class MainPage : ContentPage
 	{
         double originalWidth=10.0;
-		const int CountColumn = 20; // кількість стовпчиків (A to Z)
-		const int CountRow = 50; // кількість рядків
+		public int CountColumn = 20; // кількість стовпчиків (A to Z)
+		public int CountRow = 50; // кількість рядків
 
         Table table;
 		public MainPage()
@@ -40,11 +40,9 @@ namespace test
                         VerticalOptions = LayoutOptions.Center,
                         HorizontalOptions = LayoutOptions.Center
                     };
-
                     Grid.SetRow(label, 0);
                     Grid.SetColumn(label, col);
                     grid.Children.Add(label);
-
                 }
             }
 		}
@@ -103,7 +101,7 @@ namespace test
             //entry.AnchorX += 50;
             var row = Grid.GetRow(entry) - 1;
             var col = Grid.GetColumn(entry) - 1;
-            Pair<int, int>coordinates = new Pair<int, int>(col+1, row+1);
+            Tuple<int, int>coordinates = new Tuple<int, int>(col+1, row+1);
             if(table.CellExists(coordinates))
             {
                 entry.Text=table.GetExpression(coordinates);
@@ -121,7 +119,7 @@ namespace test
             entry.WidthRequest = originalWidth;
             //entry.AnchorX -=50;
             var col = Grid.GetColumn(entry) - 1;
-            Pair<int, int>coordinates = new Pair<int, int>(col+1, row+1);
+            Tuple<int, int>coordinates = new Tuple<int, int>(col+1, row+1);
             var content = entry.Text;
             if(content == "")
             {
@@ -133,7 +131,7 @@ namespace test
             }
             catch(Exception E)
             {
-                DisplayAlert("Error", E.Message, "OK");
+                DisplayAlert("Помилка", E.Message, "Добре");
                 content = "0";
             }
             if(table.CellExists(coordinates) && entry.Text!="")
@@ -178,7 +176,7 @@ namespace test
                 {
                     Entry newEntry = (Entry)child;
                     newEntry.Text = "";
-                    Pair<int, int>coordinates = new Pair<int, int>(Grid.GetColumn(child), Grid.GetRow(child));
+                    Tuple<int, int>coordinates = new Tuple<int, int>(Grid.GetColumn(child), Grid.GetRow(child));
                     if(table.CellExists(coordinates))
                     {
                         newEntry.Text = Convert.ToString(table.GetCellValue(coordinates));
@@ -194,13 +192,36 @@ namespace test
 		{
 		// Обробка кнопки "Порахувати"
 		}
-		private void SaveButton_Clicked(object sender, EventArgs e)
+		private async void SaveButton_Clicked(object sender, EventArgs e) // Обробка кнопки "Зберегти"
 		{
-		// Обробка кнопки "Зберегти"
+            string result = await DisplayPromptAsync("Збереження файлу", "Вкажіть шлях до розташування файлу:", "Добре", "Закрити", initialValue: "");
+            JSONManager.SaveFile(result, new JsonSerializable_(table, CountColumn, CountRow));
 		}
-		private void ReadButton_Clicked(object sender, EventArgs e)
+		private async void ReadButton_Clicked(object sender, EventArgs e)// Обробка кнопки "Прочитати"
 		{
-		// Обробка кнопки "Прочитати"
+
+            string result = await DisplayPromptAsync("Прочитати файл", "Вкажіть шлях до розташування файлу:", "Добре", "Закрити", initialValue: "");
+            if(result!="") try
+            { 
+                JsonSerializable_ obj = JSONManager.ReadFile(result);
+                CountColumn = obj.CountColumn;
+                CountRow = obj.CountRow;
+                table = new Table();
+                foreach(var cell in obj.A)
+                {
+                    table.cellByID.Add(cell.ID, new Cell(cell.value, cell.expression, cell.coordinateX, cell.coordinateY, cell.name, cell.ID));
+                    table.IDByName.Add(cell.name, cell.ID);
+                    table.BasisCells.Add(cell.ID, cell.BasisCells);
+                    table.DependentCells.Add(cell.ID, cell.DependentCells);
+                    table.color.Add(cell.ID, 0);
+                    table.IDByCoordinates.Add(new Tuple<int, int>(cell.coordinateX, cell.coordinateY), cell.ID);
+                }
+                Refresh();
+            }
+            catch (Exception E)
+            {
+                DisplayAlert("Помилка", E.Message, "Добре");
+            }
 		}
 		private async void ExitButton_Clicked(object sender, EventArgs e)
 		{
@@ -226,13 +247,13 @@ namespace test
                 }
                 catch (ArgumentException E)
                 {
-                    DisplayAlert("Error", E.Message, "OK");
+                    DisplayAlert("Помилка", E.Message, "Добре");
                 }
                 Refresh();
             }
             else
             {
-                DisplayAlert("Error", "The value you entered wasn't a number", "OK");
+                DisplayAlert("Помилка", "Введений текст не э числом.", "Добре");
             }
 		}
 		private async void DeleteColumnButton_Clicked(object sender, EventArgs e)
@@ -246,7 +267,7 @@ namespace test
                 }
                 catch (ArgumentException E)
                 {
-                    DisplayAlert("Error", E.Message, "OK");
+                    DisplayAlert("Помилка", E.Message, "Добре");
                 }
                 Refresh();
             }
@@ -259,16 +280,16 @@ namespace test
                 }
                 catch(ArgumentException E)
                 {
-                    DisplayAlert("Error", E.Message, "OK");
+                    DisplayAlert("Помилка", E.Message, "Добре");
                 }
                 Refresh();
-                //DisplayAlert("Error", "The value you entered wasn't a number", "OK");
             }
             
 		}
 		private void AddRowButton_Clicked(object sender, EventArgs e)
 		{
             int newRow = grid.RowDefinitions.Count;
+            CountRow++;
             // Add a new row definition
             grid.RowDefinitions.Add(new RowDefinition());
             // Add label for the row number
@@ -302,6 +323,7 @@ namespace test
 		private void AddColumnButton_Clicked(object sender, EventArgs e)
 		{
 			int newColumn = grid.ColumnDefinitions.Count;
+            CountColumn++;
 			// Add a new column definition
 			grid.ColumnDefinitions.Add(new ColumnDefinition());
 			// Add label for the column name

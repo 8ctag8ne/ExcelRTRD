@@ -5,11 +5,11 @@ namespace ExtensionMethods
 
 	public static class MyExtension
 	{
-			public static Pair<int, int> MakePair(int x, int y)
+			/*public static MyPair<int, int> MakePair(int x, int y)
 			{
-				Pair<int, int> p = new Pair<int, int>(x, y);
+				MyPair<int, int> p = new MyPair<int, int>(x, y);
 				return p;
-			}
+			}*/
 
 			public static List<string> ParseName(string s)
 			{
@@ -25,7 +25,7 @@ namespace ExtensionMethods
 				return ans;
 			}
 
-			public static Pair<int, int> NameToCoordinates(string s)
+			public static Tuple<int, int> NameToCoordinates(string s)
 			{
 				int i=0, x=0, y=0;
 				while(s[i]>='A' && s[i]<='Z')
@@ -39,7 +39,7 @@ namespace ExtensionMethods
 					y = y*10+Convert.ToInt32(s[i]-48);
 					i++;
 				}
-				return new Pair<int, int>(x, y);
+				return new Tuple<int, int>(x, y);
 			}
 			public static int Convert26To10(string s)
 			{
@@ -57,5 +57,17 @@ namespace ExtensionMethods
 			}
 			
 	}
+	/*public class MyPair<T1, T2>
+	{
+		public T1 First { get; set; }
+		public T2 Second { get; set; }
+
+		public MyPair(T1 first, T2 second)
+		{
+			this.First = first;
+			this.Second = second;
+		}
+
+	}*/
 
 }
