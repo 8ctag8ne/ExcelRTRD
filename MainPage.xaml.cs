@@ -132,7 +132,12 @@ namespace test
             }
             catch(Exception E)
             {
-                DisplayAlert("Помилка", E.Message+"☠️", "Добре");
+                string s = E.Message;
+                if(s[0]>='A' && s[0]<='Z')
+                {
+                     s = "Введено некоректний вираз.";
+                }
+                DisplayAlert("Помилка", s+"😵", "Добре");
                 content = "0";
             }
             if(table.CellExists(coordinates) && entry.Text!="")
@@ -145,7 +150,12 @@ namespace test
                     }
                     catch(Exception E)
                     {
-                        DisplayAlert("Помилка", E.Message+"😵", "Добре");
+                        string s = E.Message;
+                        if(s[0]>='A' && s[0]<='Z')
+                        {
+                            s = "Введено некоректний вираз.";
+                        }
+                        DisplayAlert("Помилка", s+"😵", "Добре");
                     }
                 }
             } else
@@ -157,7 +167,12 @@ namespace test
                 }
                 catch(Exception E)
                 {
-                    DisplayAlert("Помилка", E.Message+"😵", "Добре");
+                    string s = E.Message;
+                    if(s[0]>='A' && s[0]<='Z')
+                    {
+                        s = "Введено некоректний вираз.";
+                    }
+                    DisplayAlert("Помилка", s+"😵", "Добре");
                 }
             }
             if(table.CellExists(coordinates))
@@ -195,8 +210,18 @@ namespace test
 		}
 		private async void SaveButton_Clicked(object sender, EventArgs e) // Обробка кнопки "Зберегти"
 		{
-            string result = await DisplayPromptAsync("Збереження файлу", "Вкажіть шлях до розташування файлу:", "Добре", "Закрити", initialValue: "");
-            JSONManager.SaveFile(result, new JsonSerializable_(table, CountColumn, CountRow));
+            try{
+                string result = await DisplayPromptAsync("Збереження файлу", "Вкажіть шлях до розташування файлу:", "Добре", "Закрити", initialValue: "");
+                if(result==null)
+                {
+                    return;
+                }
+                JSONManager.SaveFile(result, new JsonSerializable_(table, CountColumn, CountRow));
+            }
+            catch(Exception E)
+            {
+                DisplayAlert("Помилка", "Неможливо зберегти поточний файл.", "Добре");
+            }
 		}
 		private async void ReadButton_Clicked(object sender, EventArgs e)// Обробка кнопки "Прочитати"
 		{
@@ -247,12 +272,12 @@ namespace test
 		}
 		private async void HelpButton_Clicked(object sender, EventArgs e)
 		{
-		    await DisplayAlert("Довідка", "Лабораторна робота №1 за варіантом 19.\nСтудента групи К-24 Яготіна Назарія Валентиновича.\nВиконана під науковим керівництвом Минька Вадима та ChatGPT😎🤙", "OK");
+		    await DisplayAlert("Довідка", "Лабораторна робота №1 за варіантом 19.\nСтудента групи К-24 Яготіна Назарія Валентиновича.\nВиконана під науковим керівництвом Минька Вадима та ChatGPT😎🤙", "Крутяк");
 		}
 		private async void DeleteRowButton_Clicked(object sender, EventArgs e)
 		{
             string result = await DisplayPromptAsync("Видалити рядок:", "Введіть номер рядка:", "Добре", "Закрити", initialValue: "");
-            if(result=="")
+            if(result==null)
             {
                 return;
             }
@@ -274,7 +299,7 @@ namespace test
                 Refresh();
             }
             else
-            if(result!="")
+            if(result!=null)
             {
                 DisplayAlert("Помилка", "Введений текст не є числом.👽", "Добре");
             }
