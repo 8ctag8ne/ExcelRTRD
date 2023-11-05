@@ -9,6 +9,7 @@
     ".NETCoreApp,Version=v7.0/win10-x64": {
       "test/1.0": {
         "dependencies": {
+          "CommunityToolkit.Maui": "6.1.0",
           "DemoParser.Parsing": "1.0.0",
           "Microsoft.Extensions.Configuration": "7.0.0",
           "Microsoft.Extensions.DependencyInjection": "7.0.0",
@@ -800,6 +801,28 @@
           }
         }
       },
+      "CommunityToolkit.Maui/6.1.0": {
+        "dependencies": {
+          "CommunityToolkit.Maui.Core": "6.1.0"
+        },
+        "runtime": {
+          "lib/net7.0-windows10.0.19041/CommunityToolkit.Maui.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "CommunityToolkit.Maui.Core/6.1.0": {
+        "dependencies": {
+          "System.Speech": "7.0.0"
+        },
+        "runtime": {
+          "lib/net7.0-windows10.0.19041/CommunityToolkit.Maui.Core.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
       "Microsoft.Extensions.Configuration/7.0.0": {
         "dependencies": {
           "Microsoft.Extensions.Configuration.Abstractions": "7.0.0",
@@ -1004,6 +1027,14 @@
           }
         }
       },
+      "System.Speech/7.0.0": {
+        "runtime": {
+          "runtimes/win/lib/net7.0/System.Speech.dll": {
+            "assemblyVersion": "4.0.0.0",
+            "fileVersion": "7.0.22.51805"
+          }
+        }
+      },
       "DemoParser.Parsing/1.0.0": {
         "dependencies": {
           "Antlr4.Runtime.Standard": "4.13.1"
@@ -1051,6 +1082,20 @@
       "sha512": "sha512-Da5+i4kFHUseJRZGcBG5fmZGpA/Ns180ibrQMxgZzjpQOnENVvSL5gi5HZ8Ncz8/AR2WsKbOg2lMBzjz0HUQcA==",
       "path": "antlr4.runtime.standard/4.13.1",
       "hashPath": "antlr4.runtime.standard.4.13.1.nupkg.sha512"
+    },
+    "CommunityToolkit.Maui/6.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-TB26N0SuIhGxrZXEz637LlIZoTjz6Qoc1osSm2vpw8zIj9ZiziJauXS+bN26T1ve+MXq777Gm4Il0p5rHXUKRQ==",
+      "path": "communitytoolkit.maui/6.1.0",
+      "hashPath": "communitytoolkit.maui.6.1.0.nupkg.sha512"
+    },
+    "CommunityToolkit.Maui.Core/6.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Sby05Q2+LscL1pRprKsqFmCw+lOhhxlpMKb3Xb5FlIiTC1tYyHvIKhDJAfoKCJpoYi/6sFb0WlQAI7oLai8ulg==",
+      "path": "communitytoolkit.maui.core/6.1.0",
+      "hashPath": "communitytoolkit.maui.core.6.1.0.nupkg.sha512"
     },
     "Microsoft.Extensions.Configuration/7.0.0": {
       "type": "package",
@@ -1149,6 +1194,13 @@
       "sha512": "sha512-1Y8KDCmUqytdduubaQhRz6aqaP7YhVSPE/fHeqLMsK3DrV+eBThrqkM6R/8N2lu0mwkNfKSTSAhixrTR72nyWA==",
       "path": "microsoft.windowsappsdk/1.2.221209.1",
       "hashPath": "microsoft.windowsappsdk.1.2.221209.1.nupkg.sha512"
+    },
+    "System.Speech/7.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-7E0uB92Cx2sXR67HW9rMKJqDACdLuz9t3I3OwZUFDzAgwKXWuY6CYeRT/NiypHcyZO2be9+0H0w0M6fn7HQtgQ==",
+      "path": "system.speech/7.0.0",
+      "hashPath": "system.speech.7.0.0.nupkg.sha512"
     },
     "DemoParser.Parsing/1.0.0": {
       "type": "project",

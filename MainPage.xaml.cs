@@ -5,11 +5,15 @@ using Microsoft.Maui.Controls.Compatibility;
 using System;
 using System.Collections.Generic;
 using Microsoft.Maui.Storage;
+using System.Collections.Generic;
 using Grid = Microsoft.Maui.Controls.Grid;
+using CommunityToolkit.Maui.Storage;
+using System.Text;
 namespace test
 {
 	public partial class MainPage : ContentPage
 	{
+        CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
         double originalWidth=10.0;
 		public int CountColumn = 20; // кількість стовпчиків (A to Z)
 		public int CountRow = 50; // кількість рядків
@@ -211,12 +215,17 @@ namespace test
 		private async void SaveButton_Clicked(object sender, EventArgs e) // Обробка кнопки "Зберегти"
 		{
             try{
-                string result = await DisplayPromptAsync("Збереження файлу", "Вкажіть шлях до розташування файлу:", "Добре", "Закрити", initialValue: "");
-                if(result==null)
+                using var stream = new MemoryStream(Encoding.Default.GetBytes("Text"));
+                var path = await FileSaver.SaveAsync("table.json", stream, cancellationTokenSource.Token);
+                //DisplayPromptAsync("Збереження файлу", "Вкажіть шлях до розташування файлу:", "Добре", "Закрити", initialValue: "");
+                if(path.FilePath!=null)
                 {
-                    return;
+                    JSONManager.SaveFile(path.FilePath, new JsonSerializable_(table, CountColumn, CountRow));
                 }
-                JSONManager.SaveFile(result, new JsonSerializable_(table, CountColumn, CountRow));
+            }
+            catch (NullReferenceException E)
+            {
+                return;
             }
             catch(Exception E)
             {

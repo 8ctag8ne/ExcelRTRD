@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using CommunityToolkit.Maui;
+using CommunityToolkit.Maui.Storage;
+using Microsoft.Extensions.Logging;
 
 namespace test;
 
@@ -9,6 +11,7 @@ public static class MauiProgram
 		var builder = MauiApp.CreateBuilder();
 		builder
 			.UseMauiApp<App>()
+			.UseMauiCommunityToolkit()
 			.ConfigureFonts(fonts =>
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -18,7 +21,7 @@ public static class MauiProgram
 #if DEBUG
 		builder.Logging.AddDebug();
 		builder.Services.AddSingleton<IFilePicker>(FilePicker.Default);
-		//builder.Services.AddSingleton<IFileSaver>(FileSaver.Default);
+		builder.Services.AddSingleton<IFileSaver>(FileSaver.Default);
 		builder.Services.AddTransient<MainPage>();
 #endif
 
