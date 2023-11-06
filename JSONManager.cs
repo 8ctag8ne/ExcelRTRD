@@ -18,13 +18,13 @@ public class JsonSerializable_
     public JsonSerializable_(Table tableInput, int col, int row)
     {
         A = new List<CellDeserializer>();
-        foreach(var cell in tableInput.cellByID.Values)
+        foreach(var cell in tableInput.CellByID.Values)
         {
-            A.Add(new CellDeserializer(cell.value, 
-                                         cell.expression, 
-                                         cell.coordinateX, 
-                                         cell.coordinateY, 
-                                         cell.name, 
+            A.Add(new CellDeserializer(cell.Value, 
+                                         cell.Expression, 
+                                         cell.CoordinateX, 
+                                         cell.CoordinateY, 
+                                         cell.Name, 
                                          cell.ID, 
                                          tableInput.DependentCells[cell.ID],
                                          tableInput.BasisCells[cell.ID]));

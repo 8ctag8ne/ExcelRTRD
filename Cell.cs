@@ -7,92 +7,102 @@ using DemoParser.Parsing;
 using Windows.Networking.NetworkOperators;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Runtime.CompilerServices;
 
 public class Cell
 {
-	public double value{get; set;}
-	public string expression{get; set;}
-	public int coordinateX{get; set;}
-	public int coordinateY{get; set;}
-	public string name {get; set;}
+	public double Value{get; set;}
+	public string Expression{get; set;}
+	public int CoordinateX{get; set;}
+	public int CoordinateY{get; set;}
+	public string Name {get; set;}
 	public int ID{get;}
-	public static int count=0;
+    public static int Count { get => count; set => count = value; }
 
-	public Cell(double val, string exp, int coordX, int coordY, string jname, int id)
+    private static int count = 0;
+
+    public Cell(double val, string exp, int coordX, int coordY, string jname, int id)
 	{
-		value = val;
-		expression = exp;
-		coordinateX = coordX;
-		coordinateY = coordY;
-		name = jname;
+		Value = val;
+		Expression = exp;
+		CoordinateX = coordX;
+		CoordinateY = coordY;
+		Name = jname;
 		ID = id;
 		Cell.count = Math.Max(Cell.count, ID+1);
+		if(Calculator.GlobalScope.ContainsKey(this.Name))
+		{
+			Calculator.GlobalScope[Name] = Value;
+		} else
+		{
+			Calculator.GlobalScope.Add(Name, Value);
+		}
 	}
 
 	public string GetExpression()
 	{
-		return expression;
+		return Expression;
 	}
 
 	public Tuple<int, int> GetCoordinates()
 	{
-		Tuple<int, int> p = new Tuple<int, int>(this.coordinateX, this.coordinateY);
+		Tuple<int, int> p = new Tuple<int, int>(this.CoordinateX, this.CoordinateY);
 		return p;
 	}
 
 	public string GetName()
 	{
-		return this.name;
+		return this.Name;
 	}
 
 	public string CoordinatesToName()
 	{
 		string ans = string.Empty;
-		int x = coordinateX;
+		int x = CoordinateX;
 		while(x>0)
 		{
 			ans=Convert.ToChar((x-1)%26+65)+ans;
 			x/=26;
 		}
-		ans=ans+Convert.ToString(coordinateY);
+		ans=ans+Convert.ToString(CoordinateY);
 		return ans;
 	}
 	public Cell(int x, int y)
 	{
-		coordinateX = x;
-		coordinateY = y;
-		value = 0;
-		expression = string.Empty;
-		name = CoordinatesToName();
+		CoordinateX = x;
+		CoordinateY = y;
+		Value = 0;
+		Expression = string.Empty;
+		Name = CoordinatesToName();
 		ReCalculate();
 		ID = Cell.count;
 		Cell.count++;
 	}
 	private void ReCalculate()
 	{
-		value = 0;
-		if(expression!="")
+		Value = 0;
+		if(Expression!="")
 		{
-			value = Calculator.Evaluate(this.expression);
+			Value = Calculator.Evaluate(this.Expression);
 		}
-		if(Calculator.GlobalScope.ContainsKey(this.name))
+		if(Calculator.GlobalScope.ContainsKey(this.Name))
 		{
-			Calculator.GlobalScope.Remove(this.name);
+			Calculator.GlobalScope.Remove(this.Name);
 		}
-		Calculator.GlobalScope.Add(this.name, this.value);
+		Calculator.GlobalScope.Add(this.Name, this.Value);
 	}
 	public void ChangeExpression(string exp)
 	{
-		expression = exp;
+		Expression = exp;
 		ReCalculate();
 	}
 
 	public Cell(int x, int y, string exp)
 	{
-		coordinateX = x;
-		coordinateY = y;
-		expression = exp;
-		name = CoordinatesToName();
+		CoordinateX = x;
+		CoordinateY = y;
+		Expression = exp;
+		Name = CoordinatesToName();
 		ID = Cell.count;
 		Cell.count++;
 		ReCalculate();
@@ -100,8 +110,8 @@ public class Cell
 
 	public void Delete()
 	{
-		expression = "0";
-		Calculator.GlobalScope.Remove(this.name);
+		Expression = "0";
+		Calculator.GlobalScope.Remove(this.Name);
 	}
 
 }

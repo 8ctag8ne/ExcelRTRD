@@ -14,14 +14,17 @@ namespace test
 	public partial class MainPage : ContentPage
 	{
         CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
-        double originalWidth=10.0;
-		public int CountColumn = 20; // кількість стовпчиків (A to Z)
-		public int CountRow = 50; // кількість рядків
+        private double originalWidth=10.0;
+        private int countColumn = 20; // кількість стовпчиків (A to Z)
+        private int countRow = 50; // кількість рядків
+        private Table table;
+        public int CountColumn { get => countColumn; set => countColumn = value; }
+        public int CountRow { get => countRow; set => countRow = value; }
+        public Table Table { get => table; set => table = value; }
 
-        Table table;
-		public MainPage()
+        public MainPage()
 		{
-            table = new Table();
+            Table = new Table();
             InitializeComponent();
             CreateGrid();
 		}
@@ -107,9 +110,9 @@ namespace test
             var row = Grid.GetRow(entry) - 1;
             var col = Grid.GetColumn(entry) - 1;
             Tuple<int, int>coordinates = new Tuple<int, int>(col+1, row+1);
-            if(table.CellExists(coordinates))
+            if(Table.CellExists(coordinates))
             {
-                entry.Text=table.GetExpression(coordinates);
+                entry.Text=Table.GetExpression(coordinates);
             } else
             {
                 entry.Text = "";
@@ -144,13 +147,13 @@ namespace test
                 DisplayAlert("Помилка", s+"😵", "Добре");
                 content = "0";
             }
-            if(table.CellExists(coordinates) && entry.Text!="")
+            if(Table.CellExists(coordinates) && entry.Text!="")
             {
                 if(content!="0")
                 {
                     try
                     {
-                        table.EditCell(coordinates, content);
+                        Table.EditCell(coordinates, content);
                     }
                     catch(Exception E)
                     {
@@ -167,7 +170,7 @@ namespace test
             {
                 try
                 {
-                    table.AddCell(coordinates, content);
+                    Table.AddCell(coordinates, content);
                 }
                 catch(Exception E)
                 {
@@ -179,9 +182,9 @@ namespace test
                     DisplayAlert("Помилка", s+"😵", "Добре");
                 }
             }
-            if(table.CellExists(coordinates))
+            if(Table.CellExists(coordinates))
             {
-                content = Convert.ToString(table.GetCellValue(coordinates));
+                content = Convert.ToString(Table.GetCellValue(coordinates));
             }
             entry.Text = content;
             Refresh();
@@ -192,16 +195,15 @@ namespace test
         {
             foreach (View child in grid.Children)
             {
-                if (child is Entry)
+                if (child is Entry newEntry)
                 {
-                    Entry newEntry = (Entry)child;
                     newEntry.Text = "";
-                    Tuple<int, int>coordinates = new Tuple<int, int>(Grid.GetColumn(child), Grid.GetRow(child));
-                    if(table.CellExists(coordinates))
+                    Tuple<int, int> coordinates = new(Grid.GetColumn(child), Grid.GetRow(child));
+                    if (Table.CellExists(coordinates))
                     {
-                        newEntry.Text = Convert.ToString(table.GetCellValue(coordinates));
-                    } 
-                    if(newEntry.Text == "0" && (table.GetExpression(coordinates)=="0" || table.GetExpression(coordinates)==""))
+                        newEntry.Text = Convert.ToString(Table.GetCellValue(coordinates));
+                    }
+                    if (newEntry.Text == "0" && (Table.GetExpression(coordinates) == "0" || Table.GetExpression(coordinates) == ""))
                     {
                         newEntry.Text = "";
                     }
@@ -220,16 +222,17 @@ namespace test
                 //DisplayPromptAsync("Збереження файлу", "Вкажіть шлях до розташування файлу:", "Добре", "Закрити", initialValue: "");
                 if(path.FilePath!=null)
                 {
-                    JSONManager.SaveFile(path.FilePath, new JsonSerializable_(table, CountColumn, CountRow));
+                    JSONManager.SaveFile(path.FilePath, new JsonSerializable_(Table, CountColumn, CountRow));
                 }
             }
-            catch (NullReferenceException E)
+            catch (NullReferenceException)
             {
                 return;
             }
-            catch(Exception E)
+            catch(Exception)
             {
-                DisplayAlert("Помилка", "Неможливо зберегти поточний файл.", "Добре");
+                await DisplayAlert("Помилка", "Неможливо зберегти поточний файл.", "Добре");
+                return;
             }
 		}
 		private async void ReadButton_Clicked(object sender, EventArgs e)// Обробка кнопки "Прочитати"
@@ -249,25 +252,30 @@ namespace test
                 JsonSerializable_ obj = JSONManager.ReadFile(result);
                 CountColumn = obj.CountColumn;
                 CountRow = obj.CountRow;
-                table = new Table();
-                foreach(var cell in obj.A)
+                foreach(var cell in Table.CellByID.Values) //видаляємо старі значення клітин з GlobalScope
                 {
-                    table.cellByID.Add(cell.ID, new Cell(cell.value, cell.expression, cell.coordinateX, cell.coordinateY, cell.name, cell.ID));
-                    table.IDByName.Add(cell.name, cell.ID);
-                    table.BasisCells.Add(cell.ID, cell.BasisCells);
-                    table.DependentCells.Add(cell.ID, cell.DependentCells);
-                    table.color.Add(cell.ID, 0);
-                    table.IDByCoordinates.Add(new Tuple<int, int>(cell.coordinateX, cell.coordinateY), cell.ID);
+                    cell.Delete();
                 }
-                Refresh();
+                Table = new Table();
+                Cell.Count = 0;
+                foreach(var cell in obj.A) //додаємо нові клітинки в таблицю
+                {
+                    Table.CellByID.Add(cell.ID, new Cell(cell.value, cell.expression, cell.coordinateX, cell.coordinateY, cell.name, cell.ID));
+                    Table.IDByName.Add(cell.name, cell.ID);
+                    Table.BasisCells.Add(cell.ID, cell.BasisCells);
+                    Table.DependentCells.Add(cell.ID, cell.DependentCells);
+                    Table.Color.Add(cell.ID, 0);
+                    Table.IDByCoordinates.Add(new Tuple<int, int>(cell.coordinateX, cell.coordinateY), cell.ID);
+                }
+                Refresh(); //оновлюємо Grid для коректного відображення нових значень
             }
-            catch(NullReferenceException E)
+            catch(NullReferenceException) //якщо користувач натиснув "Закрити"
             {
                 return;
             }
-            catch (Exception E)
+            catch (Exception) //якщо користувач - пітух
             {
-                DisplayAlert("Помилка", "Неможливо обрати даний файл.", "Добре");
+                await DisplayAlert("Помилка", "Неможливо обрати даний файл.", "Добре");
             }
 		}
 		private async void ExitButton_Clicked(object sender, EventArgs e)
@@ -294,7 +302,8 @@ namespace test
             {
                 try 
                 {
-                    table.DeleteRow(number);
+                    Table.DeleteRow(number);
+                    Refresh();
                 }
                 catch (ArgumentException E)
                 {
@@ -303,14 +312,13 @@ namespace test
                     {
                         s = "Введено неправильний вираз";
                     }
-                    DisplayAlert("Помилка", s+"💀", "Добре");
+                    await DisplayAlert("Помилка", s+"💀", "Добре");
                 }
-                Refresh();
             }
             else
             if(result!=null)
             {
-                DisplayAlert("Помилка", "Введений текст не є числом.👽", "Добре");
+                await DisplayAlert("Помилка", "Введений текст не є числом.👽", "Добре");
             }
 		}
 		private async void DeleteColumnButton_Clicked(object sender, EventArgs e)
@@ -324,7 +332,8 @@ namespace test
             {
                 try 
                 {
-                    table.DeleteColumn(number);
+                    Table.DeleteColumn(number);
+                    Refresh();
                 }
                 catch (ArgumentException E)
                 {
@@ -333,16 +342,16 @@ namespace test
                     {
                         s = "Введено неправильний вираз";
                     }
-                    DisplayAlert("Помилка", s+"💀", "Добре");
+                    await DisplayAlert("Помилка", s+"💀", "Добре");
                 }
-                Refresh();
             }
             else
             {
                 try
                 {
                     int num = MyExtension.Convert26To10(result);
-                    table.DeleteColumn(num);
+                    Table.DeleteColumn(num);
+                    Refresh();
                 }
                 catch(ArgumentException E)
                 {
@@ -351,9 +360,8 @@ namespace test
                     {
                         s = "Введено неправильний вираз";
                     }
-                    DisplayAlert("Помилка", s+"💀", "Добре");
+                    await DisplayAlert("Помилка", s+"💀", "Добре");
                 }
-                Refresh();
             }
             
 		}

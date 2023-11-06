@@ -43,7 +43,7 @@ namespace ExtensionMethods
 			}
 			public static int Convert26To10(string s)
 			{
-				int i=0, x=0, y=0;
+				int i=0, x=0;
 				while(i<s.Length && s[i]>='A' && s[i]<='Z')
 				{
 					x=x*26+Convert.ToInt32(s[i]-65+1);
