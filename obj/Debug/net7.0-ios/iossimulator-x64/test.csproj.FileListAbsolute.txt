@@ -267,3 +267,8 @@ C:\Users\nazar\OneDrive\Рабочий стол\унік\Прога\ООП\test\
 C:\Users\nazar\OneDrive\Рабочий стол\унік\Прога\ООП\test\obj\Debug\net7.0-ios\iossimulator-x64\test.pdb
 C:\Users\nazar\OneDrive\Рабочий стол\унік\Прога\ООП\test\obj\Debug\net7.0-ios\iossimulator-x64\test.genruntimeconfig.cache
 C:\Users\nazar\OneDrive\Рабочий стол\унік\Прога\ООП\test\obj\Debug\net7.0-ios\iossimulator-x64\ref\test.dll
+C:\Users\nazar\OneDrive\Рабочий стол\унік\Прога\ООП\test\bin\Debug\net7.0-ios\iossimulator-x64\Antlr4.Runtime.Standard.dll
+C:\Users\nazar\OneDrive\Рабочий стол\унік\Прога\ООП\test\bin\Debug\net7.0-ios\iossimulator-x64\CommunityToolkit.Maui.dll
+C:\Users\nazar\OneDrive\Рабочий стол\унік\Прога\ООП\test\bin\Debug\net7.0-ios\iossimulator-x64\CommunityToolkit.Maui.Core.dll
+C:\Users\nazar\OneDrive\Рабочий стол\унік\Прога\ООП\test\bin\Debug\net7.0-ios\iossimulator-x64\DemoParser.Parsing.dll
+C:\Users\nazar\OneDrive\Рабочий стол\унік\Прога\ООП\test\bin\Debug\net7.0-ios\iossimulator-x64\DemoParser.Parsing.pdb

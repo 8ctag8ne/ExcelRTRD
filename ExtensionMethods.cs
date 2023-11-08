@@ -1,16 +1,8 @@
-using Antlr4.Runtime.Misc;
-
 namespace ExtensionMethods
 {
 
-	public static class MyExtension
+    public static class MyExtension
 	{
-			/*public static MyPair<int, int> MakePair(int x, int y)
-			{
-				MyPair<int, int> p = new MyPair<int, int>(x, y);
-				return p;
-			}*/
-
 			public static List<string> ParseName(string s)
 			{
 				string[] lst = s.Split(new char[]{'.', ',', ' ', '(', ')', '-', '+', '^', '*', '/'}, StringSplitOptions.RemoveEmptyEntries);
@@ -57,17 +49,4 @@ namespace ExtensionMethods
 			}
 			
 	}
-	/*public class MyPair<T1, T2>
-	{
-		public T1 First { get; set; }
-		public T2 Second { get; set; }
-
-		public MyPair(T1 first, T2 second)
-		{
-			this.First = first;
-			this.Second = second;
-		}
-
-	}*/
-
 }

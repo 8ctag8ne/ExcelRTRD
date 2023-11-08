@@ -1,7 +1,8 @@
 using System.Diagnostics;
-using System.Linq;
 
 namespace DemoParser.Parsing;
+
+#pragma warning disable 0436
 
 public class LabCalculatorVisitor : LabCalculatorBaseVisitor<double>
 {

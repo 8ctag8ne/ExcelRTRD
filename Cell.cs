@@ -1,14 +1,4 @@
 namespace test;
-
-using System.Numerics;
-using Antlr4.Runtime.Misc;
-using ExtensionMethods;
-using DemoParser.Parsing;
-using Windows.Networking.NetworkOperators;
-using System.Text.Json;
-using System.Text.Json.Serialization;
-using System.Runtime.CompilerServices;
-
 public class Cell
 {
 	public double Value{get; set;}

@@ -1,8 +1,7 @@
 using Antlr4.Runtime;
 using DemoParser.Parsing;
 namespace test;
-
-
+#pragma warning disable 0436
 public static class Calculator
   {
 	public static IDictionary<string, double> GlobalScope { get;} = new Dictionary<string, double>{};

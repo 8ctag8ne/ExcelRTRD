@@ -22,11 +22,11 @@ build_metadata.AdditionalFiles.ManifestResourceName = test.AppShell.xaml
 build_metadata.AdditionalFiles.TargetPath = AppShell.xaml
 build_metadata.AdditionalFiles.RelativePath = AppShell.xaml
 
-[C:/Users/nazar/OneDrive/Рабочий стол/унік/Прога/ООП/test/MainPage.xaml]
+[C:/Users/nazar/OneDrive/Рабочий стол/унік/Прога/ООП/test/MainPage/MainPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
-build_metadata.AdditionalFiles.ManifestResourceName = test.MainPage.xaml
-build_metadata.AdditionalFiles.TargetPath = MainPage.xaml
-build_metadata.AdditionalFiles.RelativePath = MainPage.xaml
+build_metadata.AdditionalFiles.ManifestResourceName = test.MainPage.MainPage.xaml
+build_metadata.AdditionalFiles.TargetPath = MainPage\MainPage.xaml
+build_metadata.AdditionalFiles.RelativePath = MainPage\MainPage.xaml
 
 [C:/Users/nazar/OneDrive/Рабочий стол/унік/Прога/ООП/test/Resources/Styles/Colors.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml

@@ -323,6 +323,19 @@ C:\Users\nazar\OneDrive\Рабочий стол\унік\Прога\ООП\test\
 C:\Users\nazar\OneDrive\Рабочий стол\унік\Прога\ООП\test\bin\Debug\net7.0-windows10.0.19041.0\win10-x64\Antlr4.Runtime.Standard.dll
 C:\Users\nazar\OneDrive\Рабочий стол\унік\Прога\ООП\test\bin\Debug\net7.0-windows10.0.19041.0\win10-x64\DemoParser.Parsing.dll
 C:\Users\nazar\OneDrive\Рабочий стол\унік\Прога\ООП\test\bin\Debug\net7.0-windows10.0.19041.0\win10-x64\DemoParser.Parsing.pdb
+C:\Users\nazar\OneDrive\Рабочий стол\унік\Прога\ООП\test\bin\Debug\net7.0-windows10.0.19041.0\win10-x64\CommunityToolkit.Maui.dll
+C:\Users\nazar\OneDrive\Рабочий стол\унік\Прога\ООП\test\bin\Debug\net7.0-windows10.0.19041.0\win10-x64\CommunityToolkit.Maui.Core.dll
+C:\Users\nazar\OneDrive\Рабочий стол\унік\Прога\ООП\test\bin\Debug\net7.0-windows10.0.19041.0\win10-x64\System.Speech.dll
+C:\Users\nazar\OneDrive\Рабочий стол\унік\Прога\ООП\test\bin\Debug\net7.0-windows10.0.19041.0\win10-x64\clrcompression.dll
+C:\Users\nazar\OneDrive\Рабочий стол\унік\Прога\ООП\test\bin\Debug\net7.0-windows10.0.19041.0\win10-x64\CoverletSourceRootsMapping
+C:\Users\nazar\OneDrive\Рабочий стол\унік\Прога\ООП\test\bin\Debug\net7.0-windows10.0.19041.0\win10-x64\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+C:\Users\nazar\OneDrive\Рабочий стол\унік\Прога\ООП\test\bin\Debug\net7.0-windows10.0.19041.0\win10-x64\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+C:\Users\nazar\OneDrive\Рабочий стол\унік\Прога\ООП\test\bin\Debug\net7.0-windows10.0.19041.0\win10-x64\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+C:\Users\nazar\OneDrive\Рабочий стол\унік\Прога\ООП\test\bin\Debug\net7.0-windows10.0.19041.0\win10-x64\Microsoft.TestPlatform.AdapterUtilities.dll
+C:\Users\nazar\OneDrive\Рабочий стол\унік\Прога\ООП\test\bin\Debug\net7.0-windows10.0.19041.0\win10-x64\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
+C:\Users\nazar\OneDrive\Рабочий стол\унік\Прога\ООП\test\bin\Debug\net7.0-windows10.0.19041.0\win10-x64\Newtonsoft.Json.dll
+C:\Users\nazar\OneDrive\Рабочий стол\унік\Прога\ООП\test\bin\Debug\net7.0-windows10.0.19041.0\win10-x64\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
+C:\Users\nazar\OneDrive\Рабочий стол\унік\Прога\ООП\test\bin\Debug\net7.0-windows10.0.19041.0\win10-x64\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
 C:\Users\nazar\OneDrive\Рабочий стол\унік\Прога\ООП\test\bin\Debug\net7.0-windows10.0.19041.0\win10-x64\AboutAssets.txt
 C:\Users\nazar\OneDrive\Рабочий стол\унік\Прога\ООП\test\bin\Debug\net7.0-windows10.0.19041.0\win10-x64\splashSplashScreen.scale-100.png
 C:\Users\nazar\OneDrive\Рабочий стол\унік\Прога\ООП\test\bin\Debug\net7.0-windows10.0.19041.0\win10-x64\splashSplashScreen.scale-125.png
@@ -544,6 +557,3 @@ C:\Users\nazar\OneDrive\Рабочий стол\унік\Прога\ООП\test\
 C:\Users\nazar\OneDrive\Рабочий стол\унік\Прога\ООП\test\bin\Debug\net7.0-windows10.0.19041.0\win10-x64\Microsoft.Windows.System.winmd
 C:\Users\nazar\OneDrive\Рабочий стол\унік\Прога\ООП\test\bin\Debug\net7.0-windows10.0.19041.0\win10-x64\Microsoft.Windows.Widgets.winmd
 C:\Users\nazar\OneDrive\Рабочий стол\унік\Прога\ООП\test\bin\Debug\net7.0-windows10.0.19041.0\win10-x64\Microsoft.UI.Xaml.Controls.pri
-C:\Users\nazar\OneDrive\Рабочий стол\унік\Прога\ООП\test\bin\Debug\net7.0-windows10.0.19041.0\win10-x64\CommunityToolkit.Maui.dll
-C:\Users\nazar\OneDrive\Рабочий стол\унік\Прога\ООП\test\bin\Debug\net7.0-windows10.0.19041.0\win10-x64\CommunityToolkit.Maui.Core.dll
-C:\Users\nazar\OneDrive\Рабочий стол\унік\Прога\ООП\test\bin\Debug\net7.0-windows10.0.19041.0\win10-x64\System.Speech.dll

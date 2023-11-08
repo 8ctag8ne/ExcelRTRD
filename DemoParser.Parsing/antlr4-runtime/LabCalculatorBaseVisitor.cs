@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generated from c:/Users/nazar/OneDrive/Рабочий стол/унік/Прога/ООП/test/DemoParser.Parsing/LabCalculator.g4 by ANTLR 4.13.1
+// Generated from c:/Users/nazar/OneDrive/пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ/пїЅпїЅпїЅпїЅ/пїЅпїЅпїЅпїЅпїЅ/пїЅпїЅпїЅ/test/DemoParser.Parsing/LabCalculator.g4 by ANTLR 4.13.1
 
 // Unreachable code detected
 #pragma warning disable 0162
@@ -18,6 +18,10 @@
 #pragma warning disable 1591
 // Ambiguous reference in cref attribute
 #pragma warning disable 419
+
+#pragma warning disable 0436
+
+#pragma warning disable 3021
 
 using Antlr4.Runtime.Misc;
 using Antlr4.Runtime.Tree;
